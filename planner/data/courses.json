@@ -1,0 +1,11 @@
+[
+  {"code": "CS101", "title": "Intro to Programming", "credits": 3, "terms": ["fall", "winter"], "prereqs": [], "description": "Python basics, control flow, functions."},
+  {"code": "CS201", "title": "Data Structures", "credits": 3, "terms": ["fall", "winter"], "prereqs": [["CS101"]], "description": "Lists, trees, hash tables, complexity."},
+  {"code": "CS301", "title": "Algorithms", "credits": 3, "terms": ["fall"], "prereqs": [["CS201"], ["MATH220"]], "description": "Graph algorithms, dynamic programming, greedy."},
+  {"code": "CS340", "title": "Operating Systems", "credits": 3, "terms": ["winter"], "prereqs": [["CS201"]], "description": "Processes, virtual memory, scheduling, file systems."},
+  {"code": "CS370", "title": "Machine Learning", "credits": 3, "terms": ["fall", "winter"], "prereqs": [["CS201"], ["MATH240", "STAT230"]], "description": "Supervised learning, neural networks, evaluation."},
+  {"code": "CS470", "title": "Natural Language Processing", "credits": 3, "terms": ["winter"], "prereqs": [["CS370"]], "description": "Language models, transformers, LLMs."},
+  {"code": "MATH220", "title": "Discrete Mathematics", "credits": 3, "terms": ["fall", "winter"], "prereqs": [], "description": "Logic, proofs, combinatorics, graphs."},
+  {"code": "MATH240", "title": "Linear Algebra", "credits": 3, "terms": ["fall", "winter"], "prereqs": [], "description": "Vectors, matrices, eigenvalues."},
+  {"code": "STAT230", "title": "Probability", "credits": 3, "terms": ["fall", "winter", "summer"], "prereqs": [], "description": "Random variables, distributions, expectation."}
+]
