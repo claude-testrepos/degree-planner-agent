@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planwise</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 1rem; }
+    #log .user { text-align: right; }
+    #log div { margin: .5rem 0; padding: .6rem .8rem; border-radius: 10px; background: #f1f3f5; white-space: pre-wrap; }
+    #log .user { background: #dbe8ff; }
+    details { font-size: .8rem; color: #555; }
+    form { display: flex; gap: .5rem; }
+    input { flex: 1; padding: .6rem; }
+  </style>
+</head>
+<body>
+  <h1>🎓 Planwise</h1>
+  <div id="log"></div>
+  <form id="f"><input id="q" placeholder="I've done CS101 and MATH220. What should I take next fall to get to NLP?" autocomplete="off"><button>Send</button></form>
+  <script>
+    const messages = [];
+    const log = document.getElementById("log");
+    function add(role, text, trace) {
+      const el = document.createElement("div");
+      el.className = role;
+      el.textContent = text;
+      if (trace && trace.length) {
+        const d = document.createElement("details");
+        d.innerHTML = "<summary>" + trace.length + " tool call(s)</summary><pre>" + JSON.stringify(trace, null, 2) + "</pre>";
+        el.appendChild(d);
+      }
+      log.appendChild(el);
+    }
+    document.getElementById("f").onsubmit = async (e) => {
+      e.preventDefault();
+      const q = document.getElementById("q");
+      messages.push({ role: "user", content: q.value });
+      add("user", q.value);
+      q.value = "";
+      const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages }) });
+      const data = await r.json();
+      messages.push({ role: "assistant", content: data.answer });
+      add("assistant", data.answer, data.trace);
+    };
+  </script>
+</body>
+</html>
