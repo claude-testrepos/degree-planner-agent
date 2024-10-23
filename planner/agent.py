@@ -10,7 +10,7 @@ MODEL = os.environ.get("PLANNER_MODEL", "gpt-4o-mini")
 
 SYSTEM = """You are an academic advisor assistant. Help the student plan which courses to take.
 Always use the tools to look up courses and verify prerequisites; never guess course codes.
-When proposing a plan, list it term by term and respect which terms a course is offered in."""
+When proposing a plan, list it term by term and validate every term with check_term_plan."""
 
 TOOLS = [
     {"type": "function", "function": {
@@ -28,11 +28,19 @@ TOOLS = [
             "code": {"type": "string"},
             "completed": {"type": "array", "items": {"type": "string"}}},
             "required": ["code", "completed"]}}},
+    {"type": "function", "function": {
+        "name": "check_term_plan",
+        "description": "Validate the courses planned for one term (offering + credit limit)",
+        "parameters": {"type": "object", "properties": {
+            "codes": {"type": "array", "items": {"type": "string"}},
+            "term": {"type": "string", "enum": ["fall", "winter", "summer"]}},
+            "required": ["codes", "term"]}}},
 ]
 IMPL = {
     "search_courses": catalog.search_courses,
     "get_course": catalog.get_course,
     "check_prereqs": catalog.check_prereqs,
+    "check_term_plan": catalog.check_term_plan,
 }
 
 
