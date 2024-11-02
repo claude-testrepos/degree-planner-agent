@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
+from openai import OpenAIError
 from pydantic import BaseModel
 
 from . import agent
@@ -18,7 +19,10 @@ class ChatRequest(BaseModel):
 
 @app.post("/api/chat")
 def chat(req: ChatRequest):
-    answer, trace = agent.run([m.model_dump() for m in req.messages])
+    try:
+        answer, trace = agent.run([m.model_dump() for m in req.messages])
+    except OpenAIError as e:
+        raise HTTPException(status_code=502, detail=f"LLM request failed: {e}") from e
     return {"answer": answer, "trace": trace}
 
 

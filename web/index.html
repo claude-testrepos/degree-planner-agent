@@ -39,6 +39,11 @@
       add("user", q.value);
       q.value = "";
       const r = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages }) });
+      if (!r.ok) {
+        messages.pop();
+        add("assistant", "⚠️ " + (await r.json()).detail);
+        return;
+      }
       const data = await r.json();
       messages.push({ role: "assistant", content: data.answer });
       add("assistant", data.answer, data.trace);
