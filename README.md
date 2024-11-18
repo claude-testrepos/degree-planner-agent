@@ -1,6 +1,6 @@
 # Planwise: AI Course Planner
 
-Capstone project (Fall 2024). A chat assistant that helps students plan their degree. It uses an LLM with function calling to search the course catalog and verify prerequisites instaed of hallucinating them.
+Capstone project (Fall 2024). A chat assistant that helps students plan their degree. It uses an LLM with function calling to search the course catalog and verify prerequisites instead of hallucinating them.
 
 ## Architecture
 
