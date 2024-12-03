@@ -23,3 +23,8 @@ uvicorn planner.api:app --reload
 ## Tests
 
 `pytest`
+
+## TODO
+
+- [ ] add screenshots
+- [ ] write proper docs
